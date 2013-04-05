@@ -4,7 +4,7 @@ import sublime
 import sublime_plugin
 import re
 import threading
-import PelicanPluginTools
+from . import PelicanPluginTools
 
 
 class PelicanUpdateDateCommand(sublime_plugin.TextCommand):
@@ -140,15 +140,15 @@ class PelicanInsertMetadataCommand(sublime_plugin.TextCommand):
         if metadata[metadata_key_date] is "":
             metadata[metadata_key_date] = PelicanPluginTools.strDateNow()
 
-        e = self.view.begin_edit()
+        # e = self.view.begin_edit()
         article_metadata_template = PelicanPluginTools.normalize_line_endings(
             self.view, "\n".join(article_metadata_template_lines))
         article_metadata_str = article_metadata_template % metadata
         if len(metadata_regions) > 0:
-            self.view.replace(e, old_metadata_region, article_metadata_str)
+            self.view.replace(edit, old_metadata_region, article_metadata_str)
         else:
-            self.view.insert(e, 0, article_metadata_str)
-        self.view.end_edit(e)
+            self.view.insert(edit, 0, article_metadata_str)
+        # self.view.end_edit(e)
 
         # initialize slug field if it's empty
         metadata_key_slug = "Slug"

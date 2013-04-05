@@ -1,7 +1,7 @@
 import sublime
 import sublime_plugin
 import re
-import PelicanPluginTools
+from . import PelicanPluginTools
 
 
 class PelicanArticleClose(sublime_plugin.EventListener):
